@@ -7,7 +7,7 @@ function setGaugePercent($node, percent) {
   const value = GAUGE_MAX * (percent / 100) 
 
   $gaugeCircle.setAttribute('stroke-dasharray', `${value} ${GAUGE_MAX}`)
-  $gaugePercent.innerText = percent
+  $gaugePercent.innerText = percent + '%'
 }
 
 function saveState(state) {
@@ -38,14 +38,15 @@ const createTask = () => {
 }
 
 const addScrolled = () => {
+  console.log(todo.classList)
   if (todoList.length > 4){
-      todo.innerHTML = todo.classList.add('scrolling');
+      document.innerHTML = todo.classList.add('scrolling');
   }
 }
 
 const removeScrolled = () => {
   if (todoList.length <= 5 && todo.classList.contains('scrolling')){
-      todo.innerHTML = todo.classList.remove('scrolling');
+      document.innerHTML = todo.classList.remove('scrolling');
   }
 }
 
@@ -53,11 +54,16 @@ const changeTask = index => {
   todoList[index].checked = !todoList[index].checked;
   localStorage.setItem('todo', JSON.stringify(todoList));
   refreshData();
-  if (state.counter === 100){
+  if (state.counter === 100){/*
       localStorage.removeItem('todo');
       state.counter = 0;
-      saveState(state);
-      document.location.assign('lastPage.html')
+      saveState(state);*/
+      localStorage.clear();
+      todoList = [];
+      document.querySelectorAll("[id=first_page]").forEach(el => el.style.display = "none");
+      document.querySelectorAll("[id=third_page]").forEach(el => el.style.display = "inline");
+      document.querySelectorAll("[id=second_page]").forEach(el => el.style.display = "none");
+  
   }
 }
 
@@ -66,10 +72,18 @@ const deleteTask = index => {
   removeScrolled();
   localStorage.setItem('todo', JSON.stringify(todoList));
   refreshData();
+  if (todoList.length === 0){
+    localStorage.clear();
+    todoList = [];
+    document.querySelectorAll("[id=first_page]").forEach(el => el.style.display = "inline");
+    document.querySelectorAll("[id=third_page]").forEach(el => el.style.display = "none");
+    document.querySelectorAll("[id=second_page]").forEach(el => el.style.display = "none");
+  }
 }
 
 
 const refreshData = () => {
+  //displayPage();
   state.counter = Math.round((todoList.filter(x => x.checked === true).length / todoList.length)*100);
   saveState(state);
   setGaugePercent($gauge, state.counter);

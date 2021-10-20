@@ -84,14 +84,16 @@ body {
   color: #252526;
 }
 .new-day-botton:hover{
-  background: #556655;
+  background: #DCF2E3;;
 }
+
 
 .days-to-go{
   margin-top: 12px;
   margin-right:  185px;
   margin-left:  186px;
   font-family: Roboto;
+  white-space: nowrap ;
   font-style: normal;
   font-weight: normal;
   font-size: 10px;
@@ -156,7 +158,6 @@ hr{
 .task-list{
   display: block;
   margin-top: 18px;
-
   margin-right: 16px;
   margin-left: 15px;
 
@@ -164,13 +165,12 @@ hr{
 
 .task{
   display: flex;
-  width: 400px;
   margin-top: 8px;
+  width: 394px;
   border: none;
   justify-content: space-between;
   background: #F1F2F6;
   border-radius: 8px;
-
 }
 
 input{
@@ -207,6 +207,17 @@ input::hover path{
   color: #252526;
 }
 
+.task > .task-deleter path{
+  fill: none;
+}
+
+.task:hover > .task-deleter path{
+  fill: #A5A5A5;
+}
+
+.task > .task-deleter:hover path{
+  fill: #252526;
+}
 
 .new-task:hover ::placeholder{
   color: #252526;
@@ -214,17 +225,6 @@ input::hover path{
 
 .task-deleter{
   margin: 14px 14px 14px;
-}
-
-.task-deleter path{
-  border: none;
-  fill: #A5A5A5;
-}
-
-
-.task-deleter:hover path{
-  fill: #252526;
-  cursor: pointer;
 }
 
 .checker-text{
@@ -304,6 +304,7 @@ button{
 .scrolling{
   margin-bottom: 2px;
   overflow: hidden;
+  overflow-x: hidden;
   overflow-y: scroll;
 }
 
@@ -313,7 +314,7 @@ button{
 }
 
 ::-webkit-scrollbar-track {
-  background: #FFFFFF;
+  background: none;
 }
 
 ::-webkit-scrollbar-thumb {
